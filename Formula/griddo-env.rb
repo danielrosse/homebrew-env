@@ -6,20 +6,20 @@ require_relative "./../lib/custom_download_strategy.rb"
 class GriddoEnv < Formula
   desc ""
   homepage "https://github.com/danielrosse/env-generator"
-  version "0.0.23"
+  version "0.0.24"
 
   on_macos do
     if Hardware::CPU.arm?
-      url "https://github.com/danielrosse/env-generator/releases/download/v0.0.23/env-generator_0.0.23_darwin_arm64.tar.gz", using: GitHubGitDownloadStrategy
-      sha256 "50b60f5ccbfdc5ba55434f794280584ead808d62fd750d6d6262b082ec835536"
+      url "https://github.com/danielrosse/env-generator/releases/download/v0.0.24/env-generator_0.0.24_darwin_arm64.tar.gz", using: GitHubPrivateRepositoryDownloadStrategy
+      sha256 "3b1af5938513b1ee22e312e85518d6e6b5e46ba28d55ef47572353a4dd410d6d"
 
       def install
         bin.install "griddo-env"
       end
     end
     if Hardware::CPU.intel?
-      url "https://github.com/danielrosse/env-generator/releases/download/v0.0.23/env-generator_0.0.23_darwin_amd64.tar.gz", using: GitHubGitDownloadStrategy
-      sha256 "cd040f181997fffc64c9361e7ed4b4e6624ac63d273acc17c03ac65c7605da3b"
+      url "https://github.com/danielrosse/env-generator/releases/download/v0.0.24/env-generator_0.0.24_darwin_amd64.tar.gz", using: GitHubPrivateRepositoryDownloadStrategy
+      sha256 "ad6dc5b00d1159f51408aa3d117a4c69b35f21ff368ae5a4aabbc90f88d501c7"
 
       def install
         bin.install "griddo-env"
@@ -28,17 +28,17 @@ class GriddoEnv < Formula
   end
 
   on_linux do
-    if Hardware::CPU.arm? && Hardware::CPU.is_64_bit?
-      url "https://github.com/danielrosse/env-generator/releases/download/v0.0.23/env-generator_0.0.23_linux_arm64.tar.gz", using: GitHubGitDownloadStrategy
-      sha256 "ce10aa923b264078f1f616d1baef5874cc32942ff1de88ae030aaf3f11711751"
+    if Hardware::CPU.intel?
+      url "https://github.com/danielrosse/env-generator/releases/download/v0.0.24/env-generator_0.0.24_linux_amd64.tar.gz", using: GitHubPrivateRepositoryDownloadStrategy
+      sha256 "dc62f6fbfef9f5e838af83bb94bc355b1baf3bbc17aebc519129bac51c647bec"
 
       def install
         bin.install "griddo-env"
       end
     end
-    if Hardware::CPU.intel?
-      url "https://github.com/danielrosse/env-generator/releases/download/v0.0.23/env-generator_0.0.23_linux_amd64.tar.gz", using: GitHubGitDownloadStrategy
-      sha256 "c69010ab55ebfff7930e4fe2b2e7cdb2efe85cb9e1154b2a428dd5f89fb87132"
+    if Hardware::CPU.arm? && Hardware::CPU.is_64_bit?
+      url "https://github.com/danielrosse/env-generator/releases/download/v0.0.24/env-generator_0.0.24_linux_arm64.tar.gz", using: GitHubPrivateRepositoryDownloadStrategy
+      sha256 "3b9414249be74b0a574daa7da6ed4f23229aaac28ae6ec80cc1d1c6b46294598"
 
       def install
         bin.install "griddo-env"
