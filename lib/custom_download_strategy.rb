@@ -1,4 +1,4 @@
-class GitHubPrivateRepositoryReleaseDownloadStrategy < GitHubPrivateRepositoryDownloadStrategy
+class GitHubPrivateRepositoryReleaseDownloadStrategy < GitHubGitDownloadStrategy
   def initialize(url, name, version, **meta)
     super
   end
