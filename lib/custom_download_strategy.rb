@@ -7,7 +7,7 @@ require "download_strategy"
 # to sign the request.  This strategy is good in a corporate setting,
 # because it lets you use a private S3 bucket as a repo for internal
 # distribution.  (It will work for public buckets as well.)
-class S3DownloadStrategy < CurlDownloadStrategy
+class S3DownloadStrategy < AbstractFileDownloadStrategy
   def initialize(url, name, version, **meta)
     super
   end
@@ -43,8 +43,8 @@ end
 # environment variables `HOMEBREW_GITHUB_API_TOKEN`) to sign the request.  This
 # strategy is suitable for corporate use just like S3DownloadStrategy, because
 # it lets you use a private GitHub repository for internal distribution.  It
-# works with public one, but in that case simply use CurlDownloadStrategy.
-class GitHubPrivateRepositoryDownloadStrategy < CurlDownloadStrategy
+# works with public one, but in that case simply use AbstractFileDownloadStrategy.
+class GitHubPrivateRepositoryDownloadStrategy < AbstractFileDownloadStrategy
   require "utils/formatter"
   require "utils/github"
 
@@ -58,7 +58,7 @@ class GitHubPrivateRepositoryDownloadStrategy < CurlDownloadStrategy
 
   def parse_url_pattern
     unless match = url.match(%r{https://github.com/([^/]+)/([^/]+)/(\S+)})
-      raise CurlDownloadStrategyError, "Invalid url pattern for GitHub Repository."
+      raise AbstractFileDownloadStrategyError, "Invalid url pattern for GitHub Repository."
     end
 
     _, @owner, @repo, @filepath = *match
@@ -79,7 +79,7 @@ class GitHubPrivateRepositoryDownloadStrategy < CurlDownloadStrategy
     ohai @github_token
 
     unless @github_token
-      raise CurlDownloadStrategyError, "Environmental variable HOMEBREW_GITHUB_API_TOKEN is required."
+      raise AbstractFileDownloadStrategyError, "Environmental variable HOMEBREW_GITHUB_API_TOKEN is required."
     end
 
     validate_github_repository_access!
@@ -95,7 +95,7 @@ class GitHubPrivateRepositoryDownloadStrategy < CurlDownloadStrategy
       HOMEBREW_GITHUB_API_TOKEN can not access the repository: #{@owner}/#{@repo}
       This token may not have permission to access the repository or the url of formula may be incorrect.
     EOS
-    raise CurlDownloadStrategyError, message
+    raise AbstractFileDownloadStrategyError, message
   end
 end
 
@@ -111,7 +111,7 @@ class GitHubPrivateRepositoryReleaseDownloadStrategy < GitHubPrivateRepositoryDo
   def parse_url_pattern
     url_pattern = %r{https://github.com/([^/]+)/([^/]+)/releases/download/([^/]+)/(\S+)}
     unless @url =~ url_pattern
-      raise CurlDownloadStrategyError, "Invalid url pattern for GitHub Release."
+      raise AbstractFileDownloadStrategyError, "Invalid url pattern for GitHub Release."
     end
 
     _, @owner, @repo, @tag, @filename = *@url.match(url_pattern)
@@ -136,7 +136,7 @@ class GitHubPrivateRepositoryReleaseDownloadStrategy < GitHubPrivateRepositoryDo
   def resolve_asset_id
     release_metadata = fetch_release_metadata
     assets = release_metadata["assets"].select { |a| a["name"] == @filename }
-    raise CurlDownloadStrategyError, "Asset file not found." if assets.empty?
+    raise AbstractFileDownloadStrategyError, "Asset file not found." if assets.empty?
 
     assets.first["id"]
   end
