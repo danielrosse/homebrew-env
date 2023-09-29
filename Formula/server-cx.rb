@@ -5,12 +5,12 @@
 class ServerCx < Formula
   desc "Launch a local server for CX"
   homepage "https://github.com/danielrosse/InstanceServerCX"
-  version "0.0.4"
+  version "0.0.5"
   depends_on :macos
 
   on_macos do
-    url "https://github.com/danielrosse/InstanceServerCX/releases/download/v0.0.4/InstanceServerCX_0.0.4_darwin_all.tar.gz"
-    sha256 "c2a9f5dc2b2ff130c379c71e5aad5abd262458befe0aab19f296dd8ce8b0a4ca"
+    url "https://github.com/danielrosse/InstanceServerCX/releases/download/v0.0.5/InstanceServerCX_0.0.5_darwin_all.tar.gz"
+    sha256 "836023af352519a5533716947a5af2524011e77eec8eb0230ea62b2fe2d5f111"
 
     def install
       bin.install "server-cx"
