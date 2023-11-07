@@ -6,12 +6,12 @@ require_relative "../lib/custom_download_strategy"
 class GriddoEnv < Formula
   desc "Griddo env generator"
   homepage "https://github.com/danielrosse/env-generator"
-  version "0.0.42"
+  version "0.0.44"
   depends_on :macos
 
   on_macos do
-    url "https://github.com/danielrosse/env-generator/releases/download/v0.0.42/env-generator_0.0.42_darwin_all.tar.gz", using: GitHubPrivateRepositoryReleaseDownloadStrategy
-    sha256 "a294935539ecf87259f90608b8d21f05f72684954fe77fb2642c06bbbd6b454e"
+    url "https://github.com/danielrosse/env-generator/releases/download/v0.0.44/env-generator_0.0.44_darwin_all.tar.gz", using: GitHubPrivateRepositoryReleaseDownloadStrategy
+    sha256 "eea4cec6fc93e2ae38089c4dfbf24a271eb8ba65232ff616ddaaf79ae05020c5"
 
     def install
       bin.install "griddo-env"
